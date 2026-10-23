@@ -99,7 +99,7 @@ add_title("Homework 2: CI/CD Pipeline on AWS")
 add_subtitle("Automated GitHub Webhook, Jenkins, Docker, Amazon ECR & EC2 Docker Swarm")
 add_meta({
     "Author": "Ven KemLeap",
-    "Program": "Master 2 - Cloud Computing & DevOps",
+    "Program": "Master - Cloud Computing & DevOps",
     "Date": "October 2026",
     "Status": "100% Passed (Build #4 Green)"
 })

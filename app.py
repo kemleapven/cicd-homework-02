@@ -9,7 +9,7 @@ app = Flask(__name__)
 APP_VERSION = os.getenv("APP_VERSION", "1.0.0")
 APP_ENV = os.getenv("APP_ENV", "development")
 STUDENT_NAME = os.getenv("STUDENT_NAME", "Ven KemLeap")
-STUDENT_ID = os.getenv("STUDENT_ID", "Master 2 - Cloud & DevOps")
+STUDENT_ID = os.getenv("STUDENT_ID", "Master - Cloud & DevOps")
 
 HTML_TEMPLATE = """
 <!DOCTYPE html>
@@ -194,7 +194,7 @@ HTML_TEMPLATE = """
         </div>
 
         <footer>
-            Master 2 DevOps Lab &bull; Refreshed at {{ current_time }}
+            Master DevOps Lab &bull; Refreshed at {{ current_time }}
         </footer>
     </div>
 </body>

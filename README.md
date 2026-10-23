@@ -1,7 +1,7 @@
 # Homework 2: CI/CD with Jenkins, GitHub, Docker & Docker Swarm on AWS
 
 **Student Name:** Ven KemLeap  
-**Class:** Master 2 - Cloud Computing & DevOps  
+**Class:** Master - Cloud Computing & DevOps  
 **Repository:** [kemleapven/cicd-homework-02](https://github.com/kemleapven/cicd-homework-02)  
 **Docker Hub:** [kemleapx20/cicd-web-app](https://hub.docker.com/r/kemleapx20/cicd-web-app)  
 

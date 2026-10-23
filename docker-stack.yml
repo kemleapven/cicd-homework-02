@@ -13,7 +13,7 @@ services:
       - APP_ENV=production
       - PORT=5000
       - STUDENT_NAME=Ven KemLeap
-      - STUDENT_ID=Master 2 - Cloud & DevOps
+      - STUDENT_ID=Master - Cloud & DevOps
     networks:
       - cicd-overlay-net
     deploy:
