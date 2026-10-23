@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  web:
+    # Docker Hub image pushed by Jenkins CI/CD pipeline
+    image: kemleapx20/cicd-web-app:latest
+    ports:
+      - target: 5000
+        published: 5000
+        protocol: tcp
+        mode: ingress
+    environment:
+      - APP_ENV=production
+      - PORT=5000
+      - STUDENT_NAME=Ven KemLeap
+      - STUDENT_ID=Master 2 - Cloud & DevOps
+    networks:
+      - cicd-overlay-net
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        order: start-first
+      rollback_config:
+        parallelism: 1
+        delay: 5s
+        order: stop-first
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 64M
+
+networks:
+  cicd-overlay-net:
+    driver: overlay
+    attachable: true

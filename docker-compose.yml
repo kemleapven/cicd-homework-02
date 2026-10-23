@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: kemleapx20/cicd-web-app:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - APP_ENV=development
+      - PORT=5000
+      - STUDENT_NAME=Ven KemLeap
+      - STUDENT_ID=Master 2 - Cloud & DevOps
+    restart: unless-stopped
