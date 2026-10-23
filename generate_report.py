@@ -1,3 +1,4 @@
+import os
 import docx
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -149,7 +150,7 @@ add_body(
 
 add_heading2("C. Amazon ECR Private Registry")
 add_body(
-    "Amazon ECR is utilized as the primary private image registry in region ap-southeast-1. Authentication is automated in Jenkins "
+    "Amazon ECR is utilized as the primary private image registry in region us-east-1 (Account: 154560315950). Authentication is automated in Jenkins "
     "using `aws ecr get-login-password`, tagging images with both the unique traceable ${BUILD_NUMBER} and the :latest tag."
 )
 
@@ -233,6 +234,6 @@ add_bullet("4. Zero-Downtime Deployment Strategy: ",
            "Prevented outage during service updates by configuring `update_config` with `order: start-first` and `parallelism: 1`, ensuring the new replica is healthy before stopping the previous container.")
 
 # Save document
-output_path = r"D:\University\Master2\Homework\Homeword_Kemeleap_02\Homework_2_Report_Ven_KemLeap.docx"
+output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Homework_2_Report_Ven_KemLeap.docx")
 doc.save(output_path)
 print("Report generated successfully at: " + output_path)
