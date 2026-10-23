@@ -192,3 +192,61 @@ The declarative [`Jenkinsfile`](./Jenkinsfile) handles:
 3. **Private ECR Authentication on Swarm Worker Nodes:**
    - *Problem:* Worker nodes cannot pull private ECR images if only the manager authenticated.
    - *Solution:* Deployed using `docker stack deploy --with-registry-auth` so the manager safely forwards registry authentication tokens to all worker nodes in the swarm.
+
+---
+
+## 10. Verification Screenshots & Deliverables
+
+All 9 required deliverables have been verified and documented below:
+
+### 01 - Local Microservice Running
+![01 - Local Application Running](screenshots/01%20-%20Local%20Application%20Running.jpg)
+*Local web application containerized and running cleanly on port 5000.*
+
+---
+
+### 02 - GitHub Webhook Delivery
+![02 - GitHub Webhook Delivery](screenshots/02%20-%20GitHub%20Webhook%20Delivery.jpg)
+*GitHub Webhook successfully delivering push events via Cloudflare Tunnel to Jenkins.*
+
+---
+
+### 03 - GitHub Pull Request
+![03 - GitHub Pull Request](screenshots/03%20-%20GitHub%20Pull%20Request.jpg)
+*Pull Request #1 merged into main branch, triggering automated CI/CD pipeline.*
+
+---
+
+### 04 - Jenkins Pipeline Automation View
+![04 - Jenkins Pipeline View](screenshots/04%20-%20Jenkins%20Pipeline%20View.jpg)
+*Full Jenkins declarative pipeline execution (Checkout -> Unit Test -> Docker Build -> Registry Push -> Docker Swarm Deploy) 100% green.*
+
+---
+
+### 05 - Amazon ECR Private Repository
+![05 - Amazon ECR Repository](screenshots/05%20-%20Amazon%20ECR%20Repository.jpg)
+*Amazon Elastic Container Registry (ECR) repository `cicd-web-app` in `us-east-1` populated with `:latest` and `:1` image tags.*
+
+---
+
+### 06 - AWS EC2 Docker Swarm Nodes
+![06 - EC2 Swarm Nodes](screenshots/06%20-%20EC2%20Swarm%20Nodes.jpg)
+*Docker Swarm cluster status showing Manager node (Leader) and Worker node both in Ready and Active state.*
+
+---
+
+### 07 - AWS EC2 Docker Swarm Services & Replicas
+![07 - EC2 Swarm Services](screenshots/07%20-%20EC2%20Swarm%20Services.jpg)
+*Service `cicd-homework_web` running 3/3 active replicas distributed across the cluster nodes.*
+
+---
+
+### 08 - Live Application on EC2 Public IP
+![08 - Live Application on EC2 Public IP](screenshots/08%20-%20Live%20Application%20on%20EC2%20Public%20IP.jpg)
+*Live web application publicly accessible at `http://52.90.56.1:5000` displaying student credentials and healthy status.*
+
+---
+
+### 09 - AWS EC2 Security Groups Inbound Rules
+![09 - EC2 Security Groups](screenshots/09%20-%20EC2%20Security%20Groups.jpg)
+*AWS Security Groups (`launch-wizard-2`) configured with Port 5000, SSH, and Swarm overlay network rules.*

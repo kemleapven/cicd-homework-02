@@ -205,18 +205,25 @@ for stg, dur, res in stages_data:
 p_space = doc.add_paragraph()
 p_space.paragraph_format.space_before = Pt(8)
 
-add_heading2("Active Swarm Service Verification:")
-swarm_output = """ID             NAME                MODE         REPLICAS   IMAGE                            PORTS
-fnjch0d9oz7j   cicd-homework_web   replicated   3/3        kemleapx20/cicd-web-app:latest   *:5000->5000/tcp
+add_heading2("Active Swarm Cluster & Service Verification (AWS EC2):")
+swarm_output = """$ sudo docker node ls
+ID                            HOSTNAME           STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+ibf8oodlkcwoui3rv7q74tytu *   ip-172-31-23-38    Ready     Active         Leader           29.9.2
+rrlwbcfbyuswb9hpp4asd1agb     ip-172-31-28-252   Ready     Active                          29.9.2
 
-Tasks Running:
-mz89iekp2t2o   cicd-homework_web.1   Running   Node: docker-desktop
-7kznpc858v3y   cicd-homework_web.2   Running   Node: docker-desktop
-mh9ndpc7q3qj   cicd-homework_web.3   Running   Node: docker-desktop"""
+$ sudo docker stack services cicd-homework
+ID             NAME                MODE         REPLICAS   IMAGE                            PORTS
+7dinbedv5wf2   cicd-homework_web   replicated   3/3        kemleapx20/cicd-web-app:latest   *:5000->5000/tcp
+
+$ sudo docker service ps cicd-homework_web
+ID             NAME                  IMAGE                            NODE               DESIRED STATE   CURRENT STATE
+m49g5se22wbq   cicd-homework_web.1   kemleapx20/cicd-web-app:latest   ip-172-31-28-252   Running         Running
+pybr2z39273b   cicd-homework_web.2   kemleapx20/cicd-web-app:latest   ip-172-31-23-38    Running         Running
+qcqpmh4wd0sa   cicd-homework_web.3   kemleapx20/cicd-web-app:latest   ip-172-31-28-252   Running         Running"""
 add_code_block(swarm_output)
 
-add_heading2("Live Health Check & Load Balancing:")
-add_code_block('curl http://localhost:5000/health\n{"hostname":"124d2c395f83","service":"cicd-web-app","status":"UP","version":"1.0.0"}')
+add_heading2("Live EC2 Public Health Check & Load Balancing:")
+add_code_block('curl http://52.90.56.1:5000/health\n{"hostname":"234d23a46b2a","service":"cicd-web-app","status":"UP","timestamp":"2026-10-23T18:45:56.876321+00:00","version":"1.0.0"}')
 
 # Section 4: Challenges & Solutions
 add_heading1("4. Key Challenges Encountered & Solutions")
@@ -232,6 +239,34 @@ add_bullet("3. Private ECR Authentication on Swarm Nodes: ",
 
 add_bullet("4. Zero-Downtime Deployment Strategy: ", 
            "Prevented outage during service updates by configuring `update_config` with `order: start-first` and `parallelism: 1`, ensuring the new replica is healthy before stopping the previous container.")
+
+
+# Section 5: Photographic Evidence & Submission Screenshots
+add_heading1("5. Photographic Evidence & Submission Screenshots")
+screenshots_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "screenshots")
+screenshots_list = [
+    ("01. Local Microservice Running (Port 5000)", "01 - Local Application Running.jpg", "Local application running in Docker container with healthy status."),
+    ("02. GitHub Webhook Instant Delivery (Cloudflare Tunnel)", "02 - GitHub Webhook Delivery.jpg", "Successful HTTP 200 delivery to Jenkins webhook endpoint."),
+    ("03. GitHub Pull Request #1 Merged into main", "03 - GitHub Pull Request.jpg", "Feature branch merged into main via PR trigger."),
+    ("04. Jenkins Pipeline Automation View (Build #4)", "04 - Jenkins Pipeline View.jpg", "Complete 100% green multi-stage declarative CI/CD pipeline execution."),
+    ("05. Amazon ECR Private Repository (us-east-1)", "05 - Amazon ECR Repository.jpg", "Private ECR repository `cicd-web-app` with `:latest` and `:1` image tags."),
+    ("06. AWS EC2 Docker Swarm Cluster Nodes", "06 - EC2 Swarm Nodes.jpg", "Manager (Leader) and Worker node both in Ready and Active state."),
+    ("07. AWS EC2 Docker Swarm Services & 3 Replicas", "07 - EC2 Swarm Services.jpg", "3/3 replicas distributed across Manager and Worker nodes."),
+    ("08. Live Web Application on EC2 Public IP (52.90.56.1:5000)", "08 - Live Application on EC2 Public IP.jpg", "Web UI publicly accessible displaying student credentials and production status."),
+    ("09. AWS EC2 Security Groups Inbound Rules", "09 - EC2 Security Groups.jpg", "Security group configuration enabling Swarm overlay routing and Web port 5000."),
+]
+
+for title, fname, caption in screenshots_list:
+    fpath = os.path.join(screenshots_dir, fname)
+    if os.path.exists(fpath):
+        add_heading2(title)
+        doc.add_picture(fpath, width=Inches(6.0))
+        p_cap = doc.add_paragraph()
+        p_cap.paragraph_format.space_after = Pt(12)
+        r_cap = p_cap.add_run("Figure: " + caption)
+        r_cap.font.italic = True
+        r_cap.font.size = Pt(8.5)
+        r_cap.font.color.rgb = RGBColor(100, 116, 139)
 
 # Save document
 output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Homework_2_Report_Ven_KemLeap.docx")
