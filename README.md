@@ -45,7 +45,7 @@ This project implements an automated, production-grade **CI/CD Pipeline**. Any c
 ## 2. Repository Structure
 
 ```text
-Homework_Kemeleap_02/
+Homework_Kemleap_02/
 ├── .dockerignore                 # Excludes unnecessary build files
 ├── .gitignore                    # Excludes Python bytecode, caches, envs
 ├── Dockerfile                    # Production multi-worker Gunicorn container
